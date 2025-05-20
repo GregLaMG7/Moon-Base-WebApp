@@ -380,7 +380,9 @@ function piecewiseLinearInterpolate(inputValue, observedPoints, targetPoints) {
 
 function initializeMapLibreMap() {
     try {
-        const LUNAR_WMS_BASE_URL = 'http://luna.iaaras.ru/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&WIDTH=256&HEIGHT=256';
+        const PROXY_URL = 'https://crossorigin.me/'; 
+        const TARGET_WMS_URL = 'http://luna.iaaras.ru/?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&WIDTH=256&HEIGHT=256';
+        const LUNAR_WMS_BASE_URL = PROXY_URL + TARGET_WMS_URL;
         const BASE_MAP_LAYER_NAME = 'luna_wac_global';
         const DEM_MAP_LAYER_NAME = 'luna_wac_dtm';
 
