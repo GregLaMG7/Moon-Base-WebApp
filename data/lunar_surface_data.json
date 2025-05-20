@@ -1,0 +1,346 @@
+{
+  "metadata": {
+    "description": "Simulated Lunar Surface Parameters (Radiation, Seismicity, Meteorites)",
+    "coordinate_system": "Lunar Geographic (degrees)",
+    "data_source": "Simulated/Placeholder",
+    "parameter_units_and_levels": {
+      "radiation_gcr_avg": "microSieverts per day (uSv/day)",
+      "radiation_spe_risk": "Qualitative (Низкий, Средний, Высокий)",
+      "regolith_shielding_eff": "Factor (0.0 to 1.0, 1.0 = no attenuation for 1m regolith)",
+      "seismic_activity": "Qualitative (Очень низкая, Низкая, Средняя, Высокая)",
+      "meteorite_hazard": "Qualitative (Низкая, Средняя, Высокая) for micro/small impacts"
+    }
+  },
+  "surface_points": [
+    {
+      "id": "point_001",
+      "lat": -82.4,
+      "lon": 64.7,
+      "parameters": {
+        "radiation_gcr_avg": 300,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Средняя"
+      }
+    },
+    {
+      "id": "point_002",
+      "lat": -84.4,
+      "lon": 24.8,
+      "parameters": {
+        "radiation_gcr_avg": 280,
+        "radiation_spe_risk": "Средний",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Средняя"
+      }
+    },
+    {
+      "id": "point_003",
+      "lat": -83.1,
+      "lon": -16.2,
+      "parameters": {
+        "radiation_gcr_avg": 320,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Средняя",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_004",
+      "lat": -82.7,
+      "lon": -33.1,
+      "parameters": {
+        "radiation_gcr_avg": 210,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Очень низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_005",
+      "lat": -81.1,
+      "lon": -36.3,
+      "parameters": {
+        "radiation_gcr_avg": 220,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_006",
+      "lat": -80.5,
+      "lon": -37.0,
+      "parameters": {
+        "radiation_gcr_avg": 270,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_007",
+      "lat": -79.4,
+      "lon": -36.7,
+      "parameters": {
+        "radiation_gcr_avg": 260,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_008",
+      "lat": -79.7,
+      "lon": -34.8,
+      "parameters": {
+        "radiation_gcr_avg": 250,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_009",
+      "lat": -79.3,
+      "lon": -33.1,
+      "parameters": {
+        "radiation_gcr_avg": 250,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_010",
+      "lat": -77.6,
+      "lon": -38.6,
+      "parameters": {
+        "radiation_gcr_avg": 230,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_011",
+      "lat": -79.7,
+      "lon": -49.1,
+      "parameters": {
+        "radiation_gcr_avg": 230,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Очень низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_012",
+      "lat": -80.1,
+      "lon": -50.7,
+      "parameters": {
+        "radiation_gcr_avg": 270,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_013",
+      "lat": -79.9,
+      "lon": -56.1,
+      "parameters": {
+        "radiation_gcr_avg": 240,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_014",
+      "lat": -80.1,
+      "lon": -62.5,
+      "parameters": {
+        "radiation_gcr_avg": 260,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+      "id": "point_015",
+      "lat": -80.8,
+      "lon": -62.5,
+      "parameters": {
+        "radiation_gcr_avg": 200,
+        "radiation_spe_risk": "Низкий",
+        "seismic_activity": "Низкая",
+        "meteorite_hazard": "Низкая"
+      }
+    },
+    {
+    "id": "bad_sector_001",
+    "lat": -72.0,
+    "lon": -15.2,
+    "parameters": {
+      "radiation_gcr_avg": 700,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_002",
+    "lat": -70.0,
+    "lon": -68.4,
+    "parameters": {
+      "radiation_gcr_avg": 850,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_003",
+    "lat": -70.2,
+    "lon": -89.7,
+    "parameters": {
+      "radiation_gcr_avg": 797,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_004",
+    "lat": -89.9,
+    "lon": 21.0,
+    "parameters": {
+      "radiation_gcr_avg": 805,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_005",
+    "lat": -87.5,
+    "lon": -153.2,
+    "parameters": {
+      "radiation_gcr_avg": 771,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_006",
+    "lat": -76.5,
+    "lon": -174.8,
+    "parameters": {
+      "radiation_gcr_avg": 755,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_007",
+    "lat": -80.4,
+    "lon": -76.0,
+    "parameters": {
+      "radiation_gcr_avg": 970,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_008",
+    "lat": -83.4,
+    "lon": -141.5,
+    "parameters": {
+      "radiation_gcr_avg": 901,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_009",
+    "lat": -72.0,
+    "lon": 34.1,
+    "parameters": {
+      "radiation_gcr_avg": 810,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_010",
+    "lat": -76.5,
+    "lon": 19.8,
+    "parameters": {
+      "radiation_gcr_avg": 790,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_011",
+    "lat": -74.4,
+    "lon": -167.4,
+    "parameters": {
+      "radiation_gcr_avg": 777,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_012",
+    "lat": -89.2,
+    "lon": 96.5,
+    "parameters": {
+      "radiation_gcr_avg": 750,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Средняя",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_013",
+    "lat": -82.0,
+    "lon": 105.5,
+    "parameters": {
+      "radiation_gcr_avg": 900,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_014",
+    "lat": -64.6,
+    "lon": -94.4,
+    "parameters": {
+      "radiation_gcr_avg": 800,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    },
+    {
+    "id": "bad_sector_015",
+    "lat": -89.3,
+    "lon": 32.3,
+    "parameters": {
+      "radiation_gcr_avg": 700,
+      "radiation_spe_risk": "Высокий",
+      "seismic_activity": "Высокая",
+      "meteorite_hazard": "Высокая"
+      }
+    }
+  ]
+}

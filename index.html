@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/resetcss.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+	<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header class="header">
+		<div class="container">
+			<nav class="nav">
+				<ul class="nav__list">
+					<li class="nav__item"><button href="#!" class="nav__btn" id="show-unity-tour-btn">3D Экскурсия</button></li>	
+					<li class="nav__item"><button href="#!" class="nav__btn" id="toggle-module-manager-btn">Управление модулями</button>
+					</li>
+					<li class="nav__item"><button href="#!" class="nav__btn" id="help-nav-btn">Справка</button></li>
+				</ul>
+				<!-- <div class="search-area">
+					<div class="search-area__input-wrapper">
+						<input type="text" class="search-area__input">
+					</div>
+				</div> -->
+			</nav>
+		</div>
+	</header>
+	<main class="main">
+		<div id="map"></div>
+		<!-- <div id="cesiumContainer"></div> -->
+		<div class="container container--main">
+			<div class="main__wrapper">
+				<div class="window-global" id="info-and-wizard-panel">
+					<div class="window-global__scroll-content">
+						<h2 class="window-global__title">Информация об участке</h2>
+						<div class="window-global__rating">
+							<img src="images/place-ok.svg" alt="" id="site-suitability-icon">
+							<p id="site-suitability-status">Участок пригоден</p>
+						</div>
+						<div class="window-global__short-review">
+							<p class="window-global__short-review-text" id="site-short-review">Участок характеризуется умеренным рельефом, хорошей обзорностью и близостью к ресурсам, что делает его перспективным для размещения инфраструктуры лунной базы.</p>
+						</div>
+						<div class="window-global__all-analysis">
+							<button class="window-global__js-toggle">
+								<img src="images/chevron.svg" alt="">
+								<p>Детальный анализ</p>
+							</button>
+							<div class="window-global__all-spec">
+								<div class="window-global__spec-item">
+									<h3 class="window-global__spec-title u-icon-25 u-icon-mountains">Рельеф:</h3>
+									<div class="window-global__spec-points">
+										<div class="window-global__spec-points-item">
+											<span class="window-global__spec-points-item-indicator" data-indicator-color="gray-color"></span>
+											<p id="site-relief-slope">Высота</p>
+										</div>
+										<div class="window-global__spec-points-item">
+											<span class="window-global__spec-points-item-indicator" data-indicator-color="gray-color"></span>
+											<p id="site-relief-flatness">Ровная площадка</p>
+										</div>
+									</div>
+								</div>
+								<div class="window-global__spec-item">
+									<h3 class="window-global__spec-title u-icon-25 u-icon-radiation">Радиационная защита:</h3>
+									<div class="window-global__spec-points">
+										<div class="window-global__spec-points-item">
+											<span class="window-global__spec-points-item-indicator" data-indicator-color="gray-color"></span>
+											<p id="site-radiation-protection">Естественная защита: Низкая (Требуется усиление)</p>
+										</div>
+									</div>
+								</div>
+								<div class="window-global__spec-item">
+									<h3 class="window-global__spec-title u-icon-25 u-icon-shield">Безопасность</h3>
+									<div class="window-global__spec-points">
+										<div class="window-global__spec-points-item">
+											<span class="window-global__spec-points-item-indicator" data-indicator-color="gray-color"></span>
+											<p id="site-safety-seismic">Сейсмическая активность: Низкая</p>
+										</div>
+										<div class="window-global__spec-points-item">
+											<span class="window-global__spec-points-item-indicator" data-indicator-color="gray-color"></span>
+											<p id="site-safety-meteor">Метеоритная опасность: Средняя</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<button class="window-global__btn-next" id="btn-next-stepone">
+							<p>Перейти к размещению объектов</p>
+						</button>
+					</div>
+
+					<div class="window-global__scroll-content hidden">
+						<h2 class="window-global__title">Размещение объекта</h2>
+						
+						<div class="wizard-tabs">
+							<button class="wizard-tabs__tab active" data-target-panel="step-1-content" role="tab" id="tab-1" aria-controls="step-1-content" aria-selected="true">
+								Шаг 1. Выбор
+							</button>
+							<button class="wizard-tabs__tab" data-target-panel="step-2-content" role="tab" id="tab-2" aria-controls="step-2-content" aria-selected="false" tabindex="-1">
+								Шаг 2. Настройка
+							</button>
+							<button class="wizard-tabs__tab" data-target-panel="step-3-content" role="tab" id="tab-3" aria-controls="step-3-content" aria-selected="false" tabindex="-1">
+								Шаг 3. Расположение
+							</button>
+						</div>
+
+						<div class="tabs-content">
+							<div class="tabs-content__tab active" id="step-1-content" role="tabpanel" aria-labelledby="tab-1">
+								<!-- Внутри <div class="tabs-content__tab active" id="step-1-content" ... -->
+								<!-- Внутри <div class="tabs-content__tab active" id="step-1-content" ... -->
+								<h3 class="tabs-content__tab-title">Шаг 1. Выберите тип объекта для размещения</h3>
+								<div class="tabs-content__objects">
+								
+								    <!-- ОБИТАЕМЫЕ МОДУЛИ -->
+								    <div class="tabs-content__object-modul">
+								        <div class="tabs-content__object-title">
+								            <img src="images/chevron.svg" alt="">
+								            <h4 class="tabs-content__object-title-text">Обитаемые модули</h4>
+								        </div>
+								        <div class="tabs-content__object-list">
+								            <div class="tabs-content__object-item" data-object-type="residential_module_individual">
+								                <p class="tabs-content__object-name">Жилой модуль (индивидуальный)</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="residential_module_shared">
+								                <p class="tabs-content__object-name">Жилой модуль (общий)</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="sports_module">
+								                <p class="tabs-content__object-name">Спортивный модуль</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="administrative_module">
+								                <p class="tabs-content__object-name">Административный модуль</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="medical_module">
+								                <p class="tabs-content__object-name">Медицинский модуль</p>
+								            </div>
+								        </div>
+								    </div>
+								
+								    <!-- ТЕХНОЛОГИЧЕСКИЕ ОБЪЕКТЫ -->
+								    <div class="tabs-content__object-modul">
+								        <div class="tabs-content__object-title">
+								            <img src="images/chevron.svg" alt="">
+								            <h4 class="tabs-content__object-title-text">Технологические объекты</h4>
+								        </div>
+								        <div class="tabs-content__object-list">
+								            <div class="tabs-content__object-item" data-object-type="repair_module">
+								                <p class="tabs-content__object-name">Ремонтный модуль (мастерская)</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="spaceport_landing_pad">
+								                <p class="tabs-content__object-name">Космодром (посадочная площадка)</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="communication_tower">
+								                <p class="tabs-content__object-name">Вышка связи</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="plantation_greenhouse">
+								                <p class="tabs-content__object-name">Плантация (теплица)</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="waste_disposal_site">
+								                <p class="tabs-content__object-name">Мусорный полигон/Переработка</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="production_facility">
+								                <p class="tabs-content__object-name">Производственное предприятие</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="solar_power_plant">
+								                <p class="tabs-content__object-name">Солнечная электростанция</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="mining_shaft">
+								                <p class="tabs-content__object-name">Добывающая шахта</p>
+								            </div>
+								        </div>
+								    </div>
+								
+								    <!-- НАУЧНЫЕ ОБЪЕКТЫ -->
+								    <div class="tabs-content__object-modul">
+								        <div class="tabs-content__object-title">
+								            <img src="images/chevron.svg" alt="">
+								            <h4 class="tabs-content__object-title-text">Научные объекты</h4>
+								        </div>
+								        <div class="tabs-content__object-list">
+								            <div class="tabs-content__object-item" data-object-type="science_laboratory">
+								                <p class="tabs-content__object-name">Научная лаборатория</p>
+								            </div>
+								            <div class="tabs-content__object-item" data-object-type="observatory">
+								                <p class="tabs-content__object-name">Обсерватория</p>
+								            </div>
+								        </div>
+								    </div>
+								
+								</div>
+								<button class="tabs-content__next-btn" id="goto-step2-btn">Перейти к настройкам размещения</button>
+								<!-- Конец <div class="tabs-content__tab active" id="step-1-content" ... -->
+								<!-- Конец <div class="tabs-content__tab active" id="step-1-content" ... -->
+							</div>
+
+							<div class="tabs-content__tab" id="step-2-content" role="tabpanel" aria-labelledby="tab-2">
+								<h3 class="tabs-content__tab-title">Настройка параметров объекта: <span>Жилой модуль (стандартный)</span></h3>
+								<div class="tabs-content__modul-img">
+									<img src="" alt="">
+								</div>
+								<div class="tabs-content__settings">
+									<div class="tabs-content__settings-title">
+										<img src="images/chevron.svg" alt="">
+										<h4 class="tabs-content__settings-title-text">Список параметров</h4>
+									</div>
+									<div class="tabs-setting__set-list" id="step2-param-list">
+										<!-- <div class="tabs-settings__set-item">
+											<div class="tabs-settings__input-wrapper">
+												<input type="text" class="tabs-settings__input-area" placeholder="Площадь модуля (м2)">
+											</div>
+											<p class="tabs-settings__set-des">Укажите общую площадь жилого модуля. Допустимый диапазон зависит от выбранного участка и количества проживающих.</p>
+										</div>
+										<div class="tabs-settings__set-item">
+											<div class="tabs-settings__input-wrapper">
+												<input type="text" class="tabs-settings__input-area" placeholder="Количество проживающих">
+											</div>
+											<p class="tabs-settings__set-des">Укажите количество человек, для которых предназначен модуль.</p>
+										</div> -->
+									</div>
+								</div>
+								<button class="tabs-content__next-btn" id="goto-step3-btn">Перейти к настройкам расположения</button>
+							</div>
+
+							<div class="tabs-content__tab" id="step-3-content" role="tabpanel" aria-labelledby="tab-3">
+								<div class="tabs-content__tab-location">
+									<h3 class="tabs-content__tab-title tabs-content__tab-title--location">Настройка параметров объекта: <span>Жилой модуль (стандартный)</span></h3>
+									<div class="tabs-content__location">
+										<p>Координаты</p>
+										<div class="tabs-content__coordinats-wrapper">
+											<div class="tabs-content__coordinate" id="coord-lat">0</div>
+											<div class="tabs-content__coordinate" id="coord-lng">0</div>
+										</div>
+									</div>
+									<div class="tabs-content__location">
+										<p>Высота над средним уровнем (м)</p>
+										<div class="tabs-content__coordinats-wrapper">
+											<div class="tabs-content__coordinate" id="coord-ele">0</div>
+										</div>
+									</div>
+									<div class="tabs-content__corner">
+										<p>Уклон поверхности</p>
+										<div class="tabs-content__corner-wrapper">
+											<div class="tabs-corner__num" id="coord-angle">0</div>
+										</div>
+									</div>
+									<div class="tabs-content__char">
+										<span class="tabs-content__char-indicator" data-indicator-color="green-color" id="placement-suitability-indicator"></span>
+										<p class="tabs-content__char-des" id="placement-suitability-text">Общее соответствие критериям для размещения</p>
+									</div>
+									<button class="window-global__btn-next" id="place-object-button">
+										<p>Разместить объект</p>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="modules-layout hidden" id="module-manager-view">
+					<div class="module-selector">
+						<div class="module-selector__scroll-content">
+							<h2 class="module-selector__title">Выбор модуля</h2>
+							<div class="module-selector__search">
+								<div class="search-wrapper">
+									<input type="text" placeholder="Поиск по названию" class="search-input">
+								</div>
+							</div>
+							<div class="modules-grid">
+								<!-- <button class="scroll-btn scroll-left"><img src="images/chevron-left.svg" alt="Влево"></button> -->
+								<p id="no-modules-message" style="display: none; color: #888; font-size: 18px">Пока нет размещенных модулей.</p>
+								<div class="modules-container" id="placed-modules-container">
+									
+
+									<!-- <div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div>
+									<div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div>
+									<div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div>
+									<div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div>
+									<div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div>
+									<div class="module-card">
+										<img src="images/module1.png" alt="Жилой модуль 1">
+										<p>Жилой модуль 1</p>
+									</div> -->
+								</div>
+								<!-- <button class="scroll-btn scroll-right"><img src="images/chevron-right-purple.svg" alt="Вправо"></button> -->
+							</div>
+						</div>
+					</div>
+
+					<div class="modul-info-wrapper">
+						<div class="module-info" id="selected-module-info-panel">
+							<div class="module-info__scroll-content">
+								<h2 class="module-info__title">Информация о модуле и распределению ресурсов</h2>
+								<div id="module-details-content"> 
+									<div class="module-info__details">
+										<div class="info-row">
+											<span class="info-label">Название модуля:</span>
+											<span class="info-value" id="info-module-name">-</span>
+										</div>
+										<div class="info-row">
+											<span class="info-label">Тип модуля:</span>
+											<span class="info-value" id="info-module-type">-</span>
+										</div>
+										<div class="info-row">
+											<span class="info-label">ID объекта:</span> 
+											<span class="info-value" id="info-module-id">-</span>
+										</div>
+										<div class="info-row">
+											<span class="info-label">Координаты (Шир, Долг):</span> 
+											<span class="info-value" id="info-module-coords">-</span>
+										</div>
+										
+										<div class="info-row">
+											<span class="info-label">Статус:</span>
+											<span class="info-value status-text" id="info-module-status">-</span>
+										</div>
+									</div>
+									<div class="info-section-divider" style="margin-top: 20px; margin-bottom: 15px; border-bottom: 1px solid #e0e0e0;"></div>
+									<h4 class="title-object-par">Заданные параметры объекта:</h4>
+									<div id="info-module-custom-params" class="module-custom-params-list" style="margin-top: 10px;"></div>
+
+									<!-- Рес -->
+								</div>
+								<p id="select-module-prompt" style="color: #888; font-size: 18px;">Выберите модуль слева для просмотра информации.</p>
+
+								<div class="resource-distribution">
+									<h3>Распределение ресурсов</h3>
+
+									<div class="resource-section">
+										<h4>Энергия</h4>
+										<div class="resource-row">
+											<span class="resource-label">Потребление</span>
+											<span class="resource-value">100кВт</span>
+										</div>
+										<div class="resource-row">
+											<span class="resource-label">Источник</span>
+											<span class="resource-value">Солнечная электростанция 1</span>
+										</div>
+										<div class="resource-status status-ok">
+											Расход энергии не превышает допустимый
+										</div>
+									</div>
+
+									<div class="resource-section">
+										<h4>Вода</h4>
+										<div class="resource-row">
+											<span class="resource-label">Потребление</span>
+											<span class="resource-value">10 л/сутки</span>
+										</div>
+										<div class="resource-row">
+											<span class="resource-label">Источник</span>
+											<span class="resource-value">Система переработки воды</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</main>
+	<div id="unity-tour-wrapper" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 10001; justify-content: center; align-items: center;">
+		<div style="position: relative; width: 90%; height: 90%; max-width: 1000px; max-height: 700px; background: white;">
+			<iframe id="unity-iframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+			<div id="close-unity-tour-btn" class="close-unity-btn-css" title="Закрыть экскурсию"></div>
+		</div>
+	</div>
+	<!-- Модальное окно для справки -->
+	<div id="help-modal-overlay" class="modal-overlay">
+    	<div class="modal-content">
+        	<span id="close-help-modal-btn" class="modal-close-btn">×</span>
+        	<h2>Справка: Планировщик Лунной Базы</h2>
+        	
+        	<div class="help-section">
+        	    <p>Добро пожаловать в Планировщик Лунной Базы</p>
+        	    <p>Этот инструмент поможет вам спроектировать и визуализировать вашу будущую лунную колонию на поверхности Луны.</p>
+        	    <img src="images/help/manual-step0.jpg" alt="Луна арт" class="help-image help-image__art">
+        	</div>
+
+        	<div class="help-section">
+            	<h3>Как пользоваться планировщиком:</h3>
+
+            	<h4>1. Анализ Участка:</h4>
+            	<ul>
+                	<li><strong>Выберите точку на карте Луны</strong>, кликнув по ней мышью. Справа появится панель "Информация об участке".</li>
+                	<li><strong>Ознакомьтесь с характеристиками:</strong> Общая пригодность, координаты, детальный анализ (Рельеф, Радиация, Безопасность).</li>
+                	<li>Если участок пригоден, станет активной кнопка <strong>"Перейти к размещению объектов"</strong>.</li>
+            	</ul>
+            	<img src="images/help/manual-step1.png" alt="Панель информации об участке" class="help-image">
+        	</div>
+
+        	<div class="help-section">
+        	    <h4>2. Размещение Объектов (Визард):</h4>
+        	    <ul>
+        	        <li><strong>Шаг 1: Выбор типа объекта.</strong></li>
+        	        <li><strong>Шаг 2: Настройка параметров.</strong> Укажите необходимые параметры для выбранного типа.</li>
+        	        <li><strong>Шаг 3: Расположение и проверка.</strong> Подтвердите размещение, если место подходит.</li>
+        	    </ul>
+        	    <video class="help-video" width="100%" height="auto" autoplay loop muted playsinline>
+    				<source src="images/help/manual-step2.mp4" type="video/mp4">
+				</video>
+        	</div>
+	
+        	<div class="help-section">
+            	<h4>3. Менеджер Модулей:</h4>
+            	<ul>
+                	<li>Кнопка <strong>"Управление модулями"</strong> в верхнем меню открывает менеджер.</li>
+                	<li>Просматривайте список размещенных объектов и их детальную информацию (включая заданные параметры и потребление/производство ресурсов).</li>
+            	</ul>
+            	<img src="images/help/manual-step3.png" alt="Менеджер модулей" class="help-image">
+        	</div>
+        
+        	<div class="help-section">
+        	    <h4>4. Управление картой:</h4>
+        	    <ul>
+        	        <li>Используйте кнопки <code>+</code> / <code>-</code> или колесико мыши для масштаба.</li>
+        	        <li>Перемещайтесь по карте, зажав левую кнопку мыши.</li>
+        	        <li>Переключайте слои карты в правом верхнем углу.</li>
+        	    </ul>
+        	</div>
+
+        	<div class="help-section">
+        	    <h4>4. Виртуальная 3D-Экскурсия по Лунной Базе:</h4>
+        	    <ul>
+        	        <li>Погрузитесь в атмосферу! Если Вы захотите увидеть пример лунного поселения, нажмите кнопку <strong>"Открыть 3D Экскурсию"</strong>.</li>
+        	        <li>Вы сможете "прогуляться" по поверхности Луны вокруг модулей, зайти внутрь них и оценить окружение.</li>
+        	        <li>Управление: Используется мышь для обзора и клавиши стрелки для передвижения.</li>
+        	        <li>Чтобы вернуться в планировщик, закройте окно тура.</li>
+        	    </ul>
+        	    <img src="images/help/manual-step4.png" alt="3D обзор модулей" class="help-image">
+        	</div>
+
+        	<div class="help-section">
+            	<h3>Советы:</h3>
+            	<ul>
+                	<li>Ищите безопасные участки с низкой метеоритной опасностью и низким уровнем радиации.</li>
+                	<li>Обращайте внимание на уклон поверхности.</li>
+            	</ul>
+            	<p style="text-align: center; margin-top: 20px;"><strong>Удачного проектирования!</strong></p>
+        	</div>
+    	</div>
+	</div>
+
+	<script src="js/uiUtils.js"></script>
+	<script src="js/indicator.js"></script>
+	<!-- <script src="js/lunarAnalysis.js"></script> -->
+	<script src="js/mapMoon.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/tourUnity.js"></script>
+	<!-- <script src="js/cesium.js"></script> -->
+	
+</body>
+</html>
